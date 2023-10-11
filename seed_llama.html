@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <link rel="icon" type="image/png" href="./img/icon.png">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        iframe {
+            height: 75vh;
+            width: 100%;
+            /* or any width you prefer */
+            border: none;
+        }
+    </style>
+
+    <title>Making LLaMA SEE and Draw with SEED Tokenizer</title>
+
+    <meta name="description" content="SEED-LLaMA">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+    <!--FACEBOOK-->
+    <meta property="og:image" content="./img/overview.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2040">
+    <meta property="og:image:height" content="909">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ailab-cvc.github.io/seed/seed_llama.html"/>
+    <meta property="og:title" content="Making LLaMA SEE and Draw with SEED Tokenizer" />
+    <meta property="og:description"
+        content="Project page for Making LLaMA SEE and Draw with SEED Tokenizer." />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Making LLaMA SEE and Draw with SEED Tokenizer" />
+    <meta name="twitter:description"
+        content="Project page for Making LLaMA SEE and Draw with SEED Tokenizer." />
+    <meta name="twitter:image" content="./img/overview.png" />
+
+
+    <!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-52J0PM8XKV');
+    </script>
+
+
+    <style>
+        .nav-pills {
+            position: relative;
+            display: inline;
+        }
+
+        .author {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .author .affiliation {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            width: 120px;
+            top: 100%;
+            left: 50%;
+            margin-left: -60px;
+            /* Use half of the width (120/2 = 60), to center the tooltip */
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .author:hover .affiliation {
+            visibility: visible;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .video-wrapper {
+            flex: 1;
+            margin-right: 2px;
+            margin-left: 2px;
+            max-width: calc(33.33%px);
+            /* 33.33% for 3 videos per row, subtracting margins */
+            height: auto;
+            text-align: center;
+        }
+
+        .video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            margin-top: 0px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            /* Arrange items horizontally */
+            justify-content: space-between;
+            /* Spread items horizontally */
+            align-items: flex-end;
+            /* Align items at the bottom */
+        }
+
+        .image-container .image-wrapper {
+            flex: 1;
+            /* Distribute equal width to both images */
+            padding: 10px;
+            /* Add some spacing between images */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            /* Constrain image width */
+            height: auto;
+            /* Maintain image aspect ratio */
+            display: block;
+            /* Remove extra space below inline images */
+            margin: 0 auto;
+            /* Center the images within their containers */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <strong>
+                  <font size="+6">Making LLaMA SEE and Draw with <span class="rainbow-gradient">SEED</span> Tokenizer</font>
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 text-center">
+
+                <ul class="list-inline">
+                    <br>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a href="https://geyuying.github.io/">Yuying Ge*</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab">Sijie Zhao*</li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tsinghua University"><a href="https://stdkonjac.icu/">Ziyun Zeng</a></li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a href="https://geyixiao.com/">Yixiao Ge&#128231;</a></li>
+                    <!-- <br> -->
+                    <li class="author" data-affiliation="Tencent ARC Lab"><a href="https://scholar.google.com/citations?user=5fU_DtEAAAAJ">Chen Li</a></li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a href="https://xinntao.github.io/">Xintao Wang</a></li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a href="https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en">Ying Shan</a></li>
+
+                <br>
+                    <a href="https://ai.tencent.com/">
+                    <image src="img/ailab.png" height="37px"> </a>
+                      &nbsp; &nbsp; &nbsp;
+                    <a href="https://arc.tencent.com/">
+                    <image src="img/ARC.svg" height="80px"> </a>
+                <br>
+                For any inquiries, please email <a href="mailto:seed-x@googlegroups.com">seed-x@googlegroups.com</a>
+                <br><br>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <ul class="nav nav-pills nav-justified">
+
+                    <li>
+                        <a href="https://arxiv.org/abs/2310.01218">
+                            <image src="img/seed_llama_1st_page.png" height="60px">
+                                <h4><strong>Tech Report</strong></h4>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/AILab-CVC/SEED">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code/Model</strong></h4>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="">
+                            <image src="img/hf_logo.png" height="60px">
+                                <h4><strong>Online Demo (coming soon)</strong></h4>
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a href="./index.html">
+                            <image src="img/seed_icon.png" height="60px">
+                                <h4><strong>Project</strong></h4>
+                        </a>
+                    </li> -->
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="image-container">
+                  <div class="image-wrapper">
+                      <img src="img/overview.png" class="img-responsive">
+                  </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Updates</b>
+                </h3>
+
+                <p>
+                  <span class="css-rainbow-text"><b>[7 Oct 2023]</b></span>&nbsp;
+                  Check out our trailer (in English) on
+                  <a target="_blank" href="https://twitter.com/ge_yixiao/status/1710509538238157069?s=20">X (Twitter)</a>.
+                </p>
+
+                <p>
+                  <b>[2 Oct 2023]</b>&nbsp;
+                  Our technical report has been released on
+                  <a target="_blank" href="https://arxiv.org/abs/2310.01218">arXiv</a>.
+                  The checkpoints, code, and online demo will be available in late October.
+                  <span class="css-rainbow-text">Stay tuned!</span>
+                </p>
+
+                <p>
+                  <b>[29 Sep 2023]</b>&nbsp;
+                  Check out our trailer (in Chinese) on
+                  <a target="_blank" href="./img/seed_llama_wechat_video.png">WeChat (scan the QR code)</a>.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Abstract</b>
+                </h3>
+                <p>
+                  We <span style="background-color: rgb(131, 253, 131)">upgraded the SEED visual tokenizer</span>
+                  (find the initial version <a target="_blank" href="./seed.html">here</a>)
+                  and proposed <span style="background-color: rgb(131, 253, 131)">SEED-LLaMA-8B/14B</span> foundation models.
+                  The SEED-2 tokenizer can better preserve the rich visual semantics and reconstruct more realistic images.
+                  SEED-LLaMA is produced by large-scale pre-training and instruction tuning, demonstrating impressive
+                  performance on a broad range of multimodal comprehension and generation tasks.
+                  More importantly, SEED-LLaMA has exhibited compositional emergent abilities
+                  such as multi-turn in-context multimodal generation, acting like your AI assistant.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b><span class="css-rainbow-text">SEED-2</span> Tokenizer</b>
+                </h3>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed-2.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    Overview of <span class="css-rainbow-text">SEED-2</span> tokenizer.
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <p>
+                  <span style="background-color: rgb(131, 253, 131)">Core differences</span> from <a target="_blank" href="./seed.html">SEED-1</a>:
+                  <ul>
+                  <li>
+                    In SEED tokenizer <b>v2</b>, the generation embedding is aligned with the
+                    <span style="background-color: rgb(169, 156, 226)">image embedding (1 token) of unCLIP SD</span>,
+                    and can be decoded to realistic images with the
+                    <span style="background-color: rgb(169, 156, 226)">unCLIP-SD-UNet</span>.
+                  </li>
+                  <li>
+                    In SEED tokenizer <b>v1</b>, we train a visual tokenizer through aligning the generation embeddings with the
+                    <span style="background-color: rgb(169, 156, 226)">text embeddings (77 tokens) of SD</span>,
+                    and the generation embeddings can be decoded to images with the <span style="background-color: rgb(169, 156, 226)">SD-UNet</span>.
+                  </li>
+                </ul>
+                There are 8192 visual codes in SEED, and each image is embedded into 32 tokens.
+                Please refer to the technical report or SEED-1 project page for more explanations on the architecture design.
+                </p>
+                <br>
+                <p>
+                  The below figure shows the visual comparison of the reconstructed images between SEED tokenizer v2 (the third row)
+                  and SEED tokenizer v1 (the second row). We can observe that the images reconstructed by SEED tokenizer v2 can better
+                  preserve the visual information of the original images, since the semantic representations of texts can not fully preserve
+                  the rich visual information of images.
+                </p>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_comparison.jpg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    Comparison of SEED-1 (b) and SEED-2 (c) tokenizer in terms of image-to-image reconstruction<br>
+                    (i.e., original image (a) → SEED tokenize → causal
+                    visual codes → SEED de-tokenize → reconstructed image).
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+              <h3>
+                  <b><span class="css-rainbow-text">SEED-LLaMA</span></b>
+              </h3>
+              <p>
+                We develop <span style="background-color: rgb(131, 253, 131)">SEED-LLaMA-8B and SEED-LLaMA-14B</span>,
+                based on Vicuna-7B and LLaMA2-Chat-13B, respectively:
+                <ul>
+                <li>
+                  <b>Multimodal pre-training:</b>
+                  SEED-LLaMA-8B and SEED-LLaMA-14B were pre-trained with 64 A100-40G GPUs by 144 and 216 hours, respectively.
+                </li>
+                <li>
+                  <b>Multimodal instruction tuning:</b>
+                  The pre-trained SEED-LLaMA-8B and SEED-LLaMA-14B were further tuned with 32 A100-80G GPUs by 16 and 27 hours, respectively.
+                </li>
+              </ul>
+              </p>
+
+          </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_pretrain.jpeg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    Overview of <span class="css-rainbow-text">SEED-LLaMA</span> pre-training.
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <p>
+                  Taking the pre-training stage as an example, SEED-LLaMA adopts a unified <span style="background-color: rgb(253, 131, 131)">next-"word"-prediction</span>
+                  training objective on
+                  interleaved visual and textual data (as illustrated above), which are constructed based on image/video-text pairs and image-text interleaved
+                  documents (including COCO Caption, CC3M, Unsplash, LAION-COCO, MMC4, OBELISC, and WebVid).
+                </p>
+            </div>
+
+
+            <div class="col-md-8 col-md-offset-2">
+              <br>
+              <h4>
+                  Results: <span class="css-rainbow-text"><b>emergent abilities</b></span>
+              </h4>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_multi_turn1.jpeg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_multi_turn2.jpeg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    Multi-turn in-context image-and-text generation.
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_blend.jpeg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    Compositional image generation.
+                </div>
+            </div>
+
+
+            <div class="col-md-8 col-md-offset-2">
+                <p>
+                  Please refer to our technical report for more training details and results.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Citation</b>
+                </h3>
+                <div class="section bibtex">
+<pre>
+@article{ge2023making,
+  title={Making LLaMA SEE and Draw with SEED Tokenizer},
+  author={Ge, Yuying and Zhao, Sijie and Zeng, Ziyun and Ge, Yixiao and Li, Chen and Wang, Xintao and Shan, Ying},
+  journal={arXiv preprint arXiv:2310.01218},
+  year={2023}
+}</pre>
+              	  </div>
+                  <p>
+                    Get to know more about our <a href="./index.html">Project SEED</a>.
+                  </p>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Acknowledgements</b>
+                </h3>
+
+                <!-- <p>
+                    Our core contributors include Chen Li, Kun Yi, Sijie Zhao, Xiaohan Ding, Xintao Wang,
+                    Ying Shan, Yixiao Ge, and Yuying Ge,
+                    as well as the present or previous interns, Bohao Li, Jinguo Zhu, Xiaohu Jiang, and Ziyun Zeng
+                     (names listed in alphabetical order).
+                    Sincere thanks for their efforts.
+                    We would also like to thank Zhengyou Zhang, Dong Yu, and Yu Zeng for their great help and valuable suggestions.
+                </p> -->
+
+                <p>
+                    <!-- <br><br> -->
+                    The website template was borrowed from <a href="https://robotics-transformer-x.github.io/">Open X-Embodiment</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const authors = document.querySelectorAll('.author');
+
+        authors.forEach(author => {
+            // Get the affiliation from the data-affiliation attribute
+            const affiliation = author.getAttribute('data-affiliation');
+
+            // Create a new span element with the class "affiliation"
+            const span = document.createElement('span');
+            span.className = 'affiliation';
+            span.textContent = `${affiliation}`;
+
+            // Append the span to the author element
+            author.appendChild(span);
+        });
+    </script>
+</body>
+
+</html>
