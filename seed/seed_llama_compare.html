@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <link rel="icon" type="image/png" href="./img/icon.png">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        iframe {
+            height: 75vh;
+            width: 100%;
+            /* or any width you prefer */
+            border: none;
+        }
+    </style>
+
+    <title>Making LLaMA SEE and Draw with SEED Tokenizer</title>
+
+    <meta name="description" content="SEED-LLaMA">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+    <!--FACEBOOK-->
+    <meta property="og:image" content="./img/overview.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2040">
+    <meta property="og:image:height" content="909">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ailab-cvc.github.io/seed/seed_llama.html"/>
+    <meta property="og:title" content="Making LLaMA SEE and Draw with SEED Tokenizer" />
+    <meta property="og:description"
+        content="Project page for Making LLaMA SEE and Draw with SEED Tokenizer." />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Making LLaMA SEE and Draw with SEED Tokenizer" />
+    <meta name="twitter:description"
+        content="Project page for Making LLaMA SEE and Draw with SEED Tokenizer." />
+    <meta name="twitter:image" content="./img/overview.png" />
+
+
+    <!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-52J0PM8XKV');
+    </script>
+
+
+    <style>
+        .nav-pills {
+            position: relative;
+            display: inline;
+        }
+
+        .author {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .author .affiliation {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            width: 120px;
+            top: 100%;
+            left: 50%;
+            margin-left: -60px;
+            /* Use half of the width (120/2 = 60), to center the tooltip */
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .author:hover .affiliation {
+            visibility: visible;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .video-wrapper {
+            flex: 1;
+            margin-right: 2px;
+            margin-left: 2px;
+            max-width: calc(33.33%px);
+            /* 33.33% for 3 videos per row, subtracting margins */
+            height: auto;
+            text-align: center;
+        }
+
+        .video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            margin-top: 0px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            /* Arrange items horizontally */
+            justify-content: space-between;
+            /* Spread items horizontally */
+            align-items: flex-end;
+            /* Align items at the bottom */
+        }
+
+        .image-container .image-wrapper {
+            flex: 1;
+            /* Distribute equal width to both images */
+            padding: 10px;
+            /* Add some spacing between images */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            /* Constrain image width */
+            height: auto;
+            /* Maintain image aspect ratio */
+            display: block;
+            /* Remove extra space below inline images */
+            margin: 0 auto;
+            /* Center the images within their containers */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <strong>
+                  <font size="+6">Making LLaMA SEE and Draw with <span class="rainbow-gradient">SEED</span> Tokenizer</font>
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 text-center">
+
+                <ul class="list-inline">
+                    <br>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://geyuying.github.io/">Yuying Ge*</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab">Sijie Zhao*</li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tsinghua University"><a target="_blank" href="https://stdkonjac.icu/">Ziyun Zeng</a></li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a target="_blank" href="https://geyixiao.com/">Yixiao Ge&#128231;</a></li>
+                    <!-- <br> -->
+                    <li class="author" data-affiliation="Tencent ARC Lab"><a target="_blank" href="https://scholar.google.com/citations?user=5fU_DtEAAAAJ">Chen Li</a></li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a target="_blank" href="https://xinntao.github.io/">Xintao Wang</a></li>
+                    <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a target="_blank" href="https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en">Ying Shan</a></li>
+
+                <br>
+                    <a target="_blank" href="https://ai.tencent.com/">
+                    <image src="img/ailab.png" height="37px"> </a>
+                      &nbsp; &nbsp; &nbsp;
+                    <a target="_blank" href="https://arc.tencent.com/">
+                    <image src="img/ARC.svg" height="80px"> </a>
+                <br>
+                For any inquiries, please email <a href="mailto:seed-x@googlegroups.com">seed-x@googlegroups.com</a>
+                <br><br>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <ul class="nav nav-pills nav-justified">
+
+                    <li>
+                        <a target="_blank" href="https://arxiv.org/abs/2310.01218">
+                            <image src="img/seed_llama_1st_page.png" height="60px">
+                                <h4><strong>Tech Report</strong></h4>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="https://github.com/AILab-CVC/SEED">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code/Model</strong></h4>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="">
+                            <image src="img/hf_logo.png" height="60px">
+                                <h4><strong>Online Demo (coming soon)</strong></h4>
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a target="_blank" href="./seed_llama.html">
+                            <image src="img/icon.png" height="60px">
+                                <h4><strong>Back to Project</strong></h4>
+                        </a>
+                    </li> -->
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <p>
+              <a href="./seed_llama.html">[Back to home]</a>
+            </p>
+              <h3>
+                  <b><span class="css-rainbow-text">SEED-LLaMA</span>: Compare with SOTAs</b>
+              </h3>
+              <p>
+                We discuss two recent multimodal LLMs (i.e.,
+                <a target="_blank" href="https://arxiv.org/abs/2307.05222">Emu</a>,
+                <a target="_blank" href="https://next-gpt.github.io/">Next-GPT</a>)
+                that <span style="background-color: rgb(131, 253, 131)">unify visual comprehension and generation</span>.
+                We further compare SEED-LLaMA to the powerful
+                <a target="_blank" href="https://openai.com/research/gpt-4v-system-card">GPT-4V</a>.
+                Since GPT-4V cannot generate images directly,
+                we use <a target="_blank" href="https://openai.com/dall-e-3">DALLE-3</a> as an additional tool.
+                GPT-4V and DALLE-3 are connected through text prompts.
+                <br><br>
+                The <span style="background-color: rgb(131, 253, 131)">conclusions</span> as below:
+                <ul>
+                <li>
+                  <b>Emu</b> is capable of context retention within the multi-turn dialogue to some extent,
+                  however, it almost cannot follow human instructions.
+                </li>
+                <li>
+                  <b>Next-GPT</b> can follow human instructions to generate images and text, however,
+                  it is unable to comprehend multi-turn context.
+                </li>
+                <li>
+                  <b>GPT-4V</b> is an expert in multimodal comprehension and description.
+                  However, since it inherently cannot generate images directly
+                  (use DALLE-3 as a plugin instead), semantics that are not yet
+                  described by textual prompts are lost when generating images.
+                </li>
+                <li>
+                  <b><span class="css-rainbow-text">SEED-LLaMA</span></b>
+                  is an all-rounder and can properly capture multi-turn semantics and user instructions.
+                  Even if the image quality is not as good as DALLE-3 (as we directly use the open-source
+                  SD-UNet checkpoints without refinement), we believe this will be made up for in the future.
+                </li>
+              </ul>
+              </p>
+
+          </div>
+
+            <div class="col-md-8 col-md-offset-2">
+              <br>
+              <h4>
+                  Example #1 <sub>(Images may load slowly)</sub>
+              </h4>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_comparison_0.jpg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_comparison_1.jpg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_comparison_2.jpg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/seed_llama_comparison_3.jpg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Citation</b>
+                </h3>
+                <div class="section bibtex">
+<pre>
+@article{ge2023making,
+  title={Making LLaMA SEE and Draw with SEED Tokenizer},
+  author={Ge, Yuying and Zhao, Sijie and Zeng, Ziyun and Ge, Yixiao and Li, Chen and Wang, Xintao and Shan, Ying},
+  journal={arXiv preprint arXiv:2310.01218},
+  year={2023}
+}</pre>
+              	  </div>
+                  <p>
+                    Get to know more about our <a target="_blank" href="./index.html">Project SEED</a>.
+                  </p>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Acknowledgements</b>
+                </h3>
+
+                <!-- <p>
+                    Our core contributors include Chen Li, Kun Yi, Sijie Zhao, Xiaohan Ding, Xintao Wang,
+                    Ying Shan, Yixiao Ge, and Yuying Ge,
+                    as well as the present or previous interns, Bohao Li, Jinguo Zhu, Xiaohu Jiang, and Ziyun Zeng
+                     (names listed in alphabetical order).
+                    Sincere thanks for their efforts.
+                    We would also like to thank Zhengyou Zhang, Dong Yu, and Yu Zeng for their great help and valuable suggestions.
+                </p> -->
+
+                <p>
+                    <!-- <br><br> -->
+                    The website template was borrowed from <a target="_blank" href="https://robotics-transformer-x.github.io/">Open X-Embodiment</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const authors = document.querySelectorAll('.author');
+
+        authors.forEach(author => {
+            // Get the affiliation from the data-affiliation attribute
+            const affiliation = author.getAttribute('data-affiliation');
+
+            // Create a new span element with the class "affiliation"
+            const span = document.createElement('span');
+            span.className = 'affiliation';
+            span.textContent = `${affiliation}`;
+
+            // Append the span to the author element
+            author.appendChild(span);
+        });
+    </script>
+</body>
+
+</html>
