@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <link rel="icon" type="image/png" href="./img/icon.png">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        iframe {
+            height: 75vh;
+            width: 100%;
+            /* or any width you prefer */
+            border: none;
+        }
+    </style>
+
+    <title>VideoCrafter1</title>
+
+    <meta name="description" content="VideoCrafter1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+    <!--FACEBOOK-->
+    <meta property="og:image" content="./img/milestone.jpg">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="2040">
+    <meta property="og:image:height" content="638">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ailab-cvc.github.io/videocrafter"/>
+    <meta property="og:title" content="VideoCrafter1" />
+    <meta property="og:description"
+        content="VideoCrafter1: Open Diffusion Models for High-Quality Video Generation." />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VideoCrafter1" />
+    <meta name="twitter:description"
+        content="VideoCrafter1: Open Diffusion Models for High-Quality Video Generation." />
+    <meta name="twitter:image" content="./img/milestone.jpg" />
+
+
+    <!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <link rel="stylesheet" href="css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="css/bulma-slider.min.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bulma-carousel.min.js"></script>
+    <script src="js/bulma-slider.min.js"></script>
+    <script src="js/index.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-52J0PM8XKV');
+    </script>
+
+
+    <style>
+        .nav-pills {
+            position: relative;
+            display: inline;
+        }
+
+        .author {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .author .affiliation {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            width: 120px;
+            top: 100%;
+            left: 50%;
+            margin-left: -60px;
+            /* Use half of the width (120/2 = 60), to center the tooltip */
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .author:hover .affiliation {
+            visibility: visible;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .video-wrapper {
+            flex: 1;
+            margin-right: 2px;
+            margin-left: 2px;
+            max-width: calc(33.33%px);
+            /* 33.33% for 3 videos per row, subtracting margins */
+            height: auto;
+            text-align: center;
+        }
+
+        .video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            margin-top: 0px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            /* Arrange items horizontally */
+            justify-content: space-between;
+            /* Spread items horizontally */
+            align-items: flex-end;
+            /* Align items at the bottom */
+        }
+
+        .image-container .image-wrapper {
+            flex: 1;
+            /* Distribute equal width to both images */
+            padding: 10px;
+            /* Add some spacing between images */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            /* Constrain image width */
+            height: auto;
+            /* Maintain image aspect ratio */
+            display: block;
+            /* Remove extra space below inline images */
+            margin: 0 auto;
+            /* Center the images within their containers */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <strong>
+                    <font size="+6">  <img src="img/icon.png" width="45"> <span class="rainbow-gradient">VideoCrafter1</span></font>
+                    <font size="+6">: Open Diffusion Models <br> for High-Quality Video Generation</font>
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 text-center">
+                    <!-- <a target="_blank" href="https://ai.tencent.com/">
+                    <image src="img/ailab.png" height="37px"> </a>
+                <br><br> -->
+                Haoxin Chen <sup>1*</sup>, Menghan Xia <sup>1*</sup>, Yingqing He <sup>1,2*</sup>, Yong Zhang <sup>1*</sup>, Xiaodong Cun <sup>1*</sup> <br>
+                Shaoshu Yang <sup>1,3</sup>, Jinbo Xing <sup>1,4</sup>, Yaofang Liu <sup>1,5</sup>, Qifeng Chen <sup>2</sup>,<br> Xintao Wang <sup>1†</sup>, Chao Weng <sup>1</sup>, Ying Shan <sup>1</sup>
+                <br><br>
+                <sup>1</sup> Tencent AI Lab <sup>2</sup> Hong Kong University of Science and Technology <br>
+                <sup>3</sup> Chinese Academy of Sciences <sup>4</sup> The Chinese University of Hong Kong
+                <sup>5</sup> City University of Hong Kong
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Diffusion Models for Video Generation</b>
+                </h3>
+            </div>
+
+            <div class="col-md-10 col-md-offset-1">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/milestone.jpg" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    A succinct but not necessarily comprehensive <span style="background-color: rgb(169, 156, 226)">milestone</span> of diffusion-based video generation foundation models.
+                </div>
+            </div>
+
+            <div class="col-md-8 col-md-offset-2">
+              <br>
+                <p class="text-justify">
+                    The success of text-to-image generation models and the thriving ecosystem of downstream tasks are closely tied to open-source models and active communities, particularly the Stable Diffusion (SD). However, high-quality video generation has not yet been extensively developed within the open-source community and remains primarily confined to start-up companies. Our aim is to create an advanced and user-friendly video generation model that caters to both research and production, thereby contributing to the community's development. In the long run, we envision a video crafting assistant that enables us to bring our imaginative ideas to life through visual creations. Currently, we are taking the initial steps toward developing two open diffusion models for text-to-video (T2V) and image-to-video (I2V) tasks, which are capable of producing high-quality videos.
+                </p>
+            </div>
+
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <ul class="nav nav-pills nav-justified">
+
+                    <li>
+                        <a target="_blank" href="https://github.com/AILab-CVC/VideoCrafter">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>GitHub</strong></h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://arxiv.org/list/cs.CV/recent">
+                            <image src="img/arxiv.png" height="60px">
+                                <h4><strong>Tech Report</strong></h4>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="https://discord.gg/z6veKNgV">
+                            <image src="img/discord.webp" height="60px">
+                                <h4><strong> Floor33 Discord</strong></h4>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+
+        <!-- <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>News</b>
+                </h3>
+                <p>
+                  <span class="css-rainbow-text"><b>[2 Oct 2023]</b></span>&nbsp;
+                  We are excited to unveil
+                  <span style="background-color: rgb(131, 253, 131)">SEED-LLaMA</span>,
+                  which offers unified multimodal comprehension and generation capabilities,
+                  featuring multi-turn in-context emergent capabilities, akin to an AI aide.
+                  <br>
+                  <ul>
+                    <li>Links:
+                      <a target="_blank" href="./seed_llama.html">Project Page</a>,
+                      <a target="_blank" href="https://arxiv.org/abs/2310.01218">Tech Report</a>,
+                      <a target="_blank" href="https://github.com/AILab-CVC/SEED">Code</a>,
+                      <a target="_blank" href="https://huggingface.co/AILab-CVC/SEED">Models</a>,
+                      <a target="_blank" href="https://10a4e7976e6fc2032c.gradio.live/">Online Demo</a>
+                    </li>
+                    <li>Features:
+                      <ul>
+                      <li>We upgrade the SEED tokenizer to <span style="background-color: rgb(131, 253, 131)">v2</span> that is able to generate more realistic images.</li>
+                      <li>We propose a series of SEED-LLaMA-8/14B models, including the pre-trained models and the ones after instruction tuning.
+                      SEED-LLaMA is empowered by the improved SEED-2 tokenizer.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </p>
+
+
+
+            </div>
+        </div> -->
+
+        <!-- image demo -->
+
+        <div class="container">
+            <div class="col-md-10 col-md-offset-1 ">
+            <div id="results-carousel" class="carousel results-carousel">
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/fox.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/hedgehog.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/girl_and_dog.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/parrot.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/two_raccoons.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Discord: Floor33</b>
+                </h3>
+                <a target="_blank" href="https://discord.gg/z6veKNgV">
+                            <image src="img/discord.webp" height="60px">
+                        </a>
+                <a target="_blank" href="https://discord.gg/rrayYqZ4tf">
+                            <image src="https://dcbadge.vercel.app/api/server/rrayYqZ4tf?style=flat">
+                        </a>
+                <p>Based on VideoCrafter1, we set up the <a target="_blank" href="https://discord.gg/z6veKNgV">Floor33 Discord</a>. Welcom to join and try your own ideas!</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Method</b>
+                </h3>
+                <img src="img/overall.jpg" class="img-responsive"></img>
+                <p>We have open-sourced two diffusion models for video generation in VideoCrafter1.<br>
+                    1) The Text-to-Video (T2V) model can generate realistic and cinematic-quality videos with a resolution of 1024 × 576, outperforming other open-source T2V models in terms of quality.<br>
+                    2) The Image-to-Video (I2V) model is designed to produce videos that strictly adhere to the content of the provided reference image, preserving its content, structure, and style. This model is the first open-source I2V foundation model capable of transforming a given image into a video clip while maintaining content preservation constraints.</p>
+
+
+                <img src="img/framework.jpg" class="img-responsive"></img>
+                <p>The framework of the video diffusion model in VideoCrafter1. We train the video UNet in the latent space of the auto-encoder. FPS is taken as a condition to control the motion speed of the generated video. For the T2V model, only the text prompt is fed into the spatial transformer via cross-attention, while for the I2V model, both the text and image prompts are taken as the inputs</p>
+
+            </div>
+        </div>
+
+        <!-- <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Partial Results</b>
+                </h3>
+
+                <h4>
+                    Video demo
+                </h4>
+            </div>
+
+            <div class="col-md-10 col-md-offset-1">
+                <div class="video-container" style="margin-top: 0px;">
+                    <div class="video-wrapper">
+                        <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/seed-llama-demo1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-wrapper">
+                        <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/seed-llama-demo2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+            </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Evaluation</b>
+                </h3>
+
+                <p>Please refer to <a target="_blank" href="https://evalcrafter.github.io/">
+                            our EvalCrafter
+                        </a> for a comprehensive evaluation </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Notes</b>
+                </h3>
+                <p>
+                  <b>- Citation: </b>
+                  If you are using the code, models, and data in your research or are inspired by our work,
+                  <a target="_blank" href="./citation.txt">please cite</a>.
+                </p>
+
+                <p>
+                  <b>- License: </b>
+                  Our code, models and data are distributed under <a target="_blank" href="https://github.com/AILab-CVC/SEED/blob/main/License.txt">Apache 2.0 License</a>.
+                </p>
+
+                <!-- <p>
+                  <b>- Others: </b>
+                  Check out <a target="_blank" href="https://geyixiao.com/">other projects</a> of our team.
+                </p> -->
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Acknowledgements</b>
+                </h3>
+
+                    <br><br>
+                    The website template was borrowed from <a target="_blank" href="https://robotics-transformer-x.github.io/">Open X-Embodiment</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const authors = document.querySelectorAll('.author');
+
+        authors.forEach(author => {
+            // Get the affiliation from the data-affiliation attribute
+            const affiliation = author.getAttribute('data-affiliation');
+
+            // Create a new span element with the class "affiliation"
+            const span = document.createElement('span');
+            span.className = 'affiliation';
+            span.textContent = `${affiliation}`;
+
+            // Append the span to the author element
+            author.appendChild(span);
+        });
+    </script>
+</body>
+
+</html>
