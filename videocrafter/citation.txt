@@ -1,0 +1,8 @@
+@misc{chen2023videocrafter1,
+      title={VideoCrafter1: Open Diffusion Models for High-Quality Video Generation}, 
+      author={Haoxin Chen and Menghan Xia and Yingqing He and Yong Zhang and Xiaodong Cun and Shaoshu Yang and Jinbo Xing and Yaofang Liu and Qifeng Chen and Xintao Wang and Chao Weng and Ying Shan},
+      year={2023},
+      eprint={2310.19512},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
