@@ -182,7 +182,7 @@
                 <li class="author" data-affiliation="Tencent ARC Lab">Kun Yi</li>
                 <li class="author" data-affiliation="NUS"><a target="_blank" href="http://jeff95.me/">Jianfeng Zhang</a></li>
                 <li class="author" data-affiliation="Show Lab NUS"><a target="_blank" href="https://scholar.google.com/citations?user=No9OsocAAAAJ">Difei Gao</a></li>
-                <!-- <br> -->
+                <br>
                 <li class="author" data-affiliation="Tencent ARC Lab">Dylan Sun</li>
                 <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://geyuying.github.io/">Yuying Ge</a></li>
                 <li class="author" data-affiliation="Tencent ARC Lab, Tencent AI Lab"><a target="_blank" href="https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en">Ying Shan</a></li>
@@ -205,7 +205,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="image-container">
                     <div class="image-wrapper">
-                        <img src="img/teaser.gif" style="height:400px;" class="img-responsive">
+                        <img src="img/vitlens-teaser.png" style="height:450px;" class="img-responsive">
                     </div>
                 </div>
             </div>
@@ -225,19 +225,25 @@
                 </div>
             </div>
 
-            <div class="col-md-4 col-md-offset-4 text-center">
+            <div class="col-md-6 col-md-offset-3 text-center">
                 <ul class="nav nav-pills nav-justified">
+                    <li>
+                        <a target="_blank" href="https://arxiv.org/abs/2311.16081">
+                            <image src="img/paper.png" height="80px">
+                                <h4><strong>Paper</strong></h4>
+                        </a>
+                    </li>
 
                     <li>
                         <a target="_blank" href="https://github.com/TencentARC/ViT-Lens">
-                            <image src="img/github.png" height="60px">
+                            <image src="img/github.png" height="80px">
                                 <h4><strong>Github (Code & Models)</strong></h4>
                         </a>
                     </li>
 
                     <li>
                         <a target="_blank" href="./index.html">
-                            <image src="img/gradio.png" height="60px">
+                            <image src="img/gradio.png" height="80px">
                                 <h4><strong>Demo (coming soon)</strong></h4>
                         </a>
                     </li>
@@ -252,11 +258,13 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="text-align: justify;">
                 <h3>
-                    <b>Design Pattern</b>
+                    <b>Design Pattern and Results</b>
                 </h3>
-                <img src="img/design.gif" class="img-responsive"></img>
 
-
+                <h4>
+                    (I) Understanding across modalities
+                </h4>
+                <img src="img/train_understanding.gif" class="img-responsive" style="width: 90%;"></img>
                 <p><b>(Left) Training Pipeline:</b>
                     ViT-Lens extends the capabilities of a pre-trained ViT to diverse modalities. 
                     For each novel modality, it firstly employs a Modality Embedding (ModEmbed) and a Lens 
@@ -266,66 +274,64 @@
                     of the new modality using an off-the-shelf foundation model.
                 </p>
 
+
                 <p>
+                    <b>(Right) Performance on Understanding Tasks:</b>
+                    ViT-Lens consistently enhances the performance and outperforms previous methods on understanding tasks, such as classification, zero-shot classification (ZS) and linear probing (LP), 
+                        across 3D point cloud, depth, audio, tactile, and EEG modalities.
+                </p>
+
+                <!-- <p>
                     <b>(Right) Integration of ViT-Lens to MLLM:</b>
                     By incorporating the ViT from MLLM as part of the modality encoder and as the foundation model
                      in ViT-Lens training, the yielded modality Lenses can be seamlessly integrated into 
                      the MLLM for plug-and-play application.
-                </p>
+                </p> -->
 
             </div>
         </div>
 
-
+        <br><br>
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h3>
-                    <b>Partial Results</b>
-                </h3>
-            </div>
-
-            <div class="col-md-10 col-md-offset-1">
                 <h4>
-                    Understanding tasks across modalities
+                    (II) ViT-Lens integration to MLLMs
                 </h4>
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-10 col-md-offset-1">
                     <div class="image-container">
                         <div class="image-wrapper">
-                            <img src="img/perf.png" class="img-responsive" alt="perf" style="width: 80%">
+                            <img src="img/plugin.gif" class="img-responsive" style="width: 90%;"></img>
                         </div>
                     </div>
                 </div>
+                <p><b>Illustration of training-free ViT-Lens integration:</b>
+                    By incorporating the ViT from MLLM as part of the modality encoder and as the foundation model
+                     in ViT-Lens training, the yielded modality Lenses can be seamlessly integrated into 
+                     the MLLMs (e.g., InstructBLIP and SEED) for plug-and-play application.
+                </p>
+
+                <br><br>
                 <div class="col-md-10 col-md-offset-1">
-                    <div style="text-align: justify; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="vitlens">
-                        ViT-Lens consistently enhances the performance and outperforms previous methods on understanding tasks, such as classification, zero-shot classification (ZS) and linear probing (LP), 
-                        across 3D point cloud, depth, audio, tactile, and EEG modalities.
-                    </div>
-                </div>
-            
-            </div>
-            <div class="col-md-10 col-md-offset-1">
-                <h4>
-                    Video demos of ViT-Lens integration
-                </h4>
-                <div class="col-md-8 col-md-offset-2">
                     <div class="image-container">
                         <div class="image-wrapper">
-                            <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <video class="video" style="width: 100%;" onclick="setAttribute('controls', 'true');" autoplay loop muted>
                                 <source src="video/insblip.mp4" type="video/mp4">
                             </video>
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="col-md-10 col-md-offset-1">
                     <div style="text-align: center; margin-top: -10px; margin-bottom: 120px; font-size: 17px;" class="vitlens">
-                      Plug ViT-Lens into InstructBLIP, enabling Any Instruction Following out-of-the-box.
+                      <b>Plug ViT-Lens into InstructBLIP</b>, enabling Any Instruction Following out-of-the-box.
                     </div>
                 </div>
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <video class="video" style="width: 100%;" onclick="setAttribute('controls', 'true');" autoplay loop muted>
                                 <source src="video/vid_seed.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -333,7 +339,7 @@
                 </div>
                 <div class="col-md-10 col-md-offset-1">
                     <div style="text-align: center; margin-top: -10px; margin-bottom: 24px; font-size: 17px;" class="vitlens">
-                      Plug ViT-Lens into SEED, enabling compound Any-to-Image Generation out-of-the-box.
+                      <b>Plug ViT-Lens into SEED</b>, enabling compound Any-to-Image Generation out-of-the-box.
                     </div>
                 </div>
 
@@ -367,7 +373,7 @@
 
 
         <div class="row">
-            <div class="col-md-`0 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1">
                 <h3>
                     <b>Acknowledgements</b>
                 </h3>
