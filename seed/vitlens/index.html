@@ -14,6 +14,9 @@
             /* or any width you prefer */
             border: none;
         }
+        audio {
+            margin: auto;
+        }
     </style>
 
     <title>ViT-Lens</title>
@@ -264,7 +267,6 @@
                 <h4>
                     (I) Understanding across modalities
                 </h4>
-                <img src="img/train_understanding.gif" class="img-responsive" style="width: 90%;"></img>
                 <p><b>(Left) Training Pipeline:</b>
                     ViT-Lens extends the capabilities of a pre-trained ViT to diverse modalities. 
                     For each novel modality, it firstly employs a Modality Embedding (ModEmbed) and a Lens 
@@ -273,13 +275,13 @@
                     Finally, the output feature is aligned with the feature extracted from the anchor data (image, text, etc.) 
                     of the new modality using an off-the-shelf foundation model.
                 </p>
-
-
                 <p>
                     <b>(Right) Performance on Understanding Tasks:</b>
                     ViT-Lens consistently enhances the performance and outperforms previous methods on understanding tasks, such as classification, zero-shot classification (ZS) and linear probing (LP), 
                         across 3D point cloud, depth, audio, tactile, and EEG modalities.
                 </p>
+
+                <img src="img/train_understanding.gif" class="img-responsive" style="width: 90%;"></img>
 
                 <!-- <p>
                     <b>(Right) Integration of ViT-Lens to MLLM:</b>
@@ -298,6 +300,11 @@
                 <h4>
                     (II) ViT-Lens integration to MLLMs
                 </h4>
+                <p style="text-align: justify;"><b>Illustration of training-free ViT-Lens integration:</b>
+                    By incorporating the ViT from MLLM as part of the modality encoder and as the foundation model
+                     in ViT-Lens training, the yielded modality Lenses can be seamlessly integrated into 
+                     the MLLMs (e.g., InstructBLIP and SEED) for plug-and-play application.
+                </p>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="image-container">
                         <div class="image-wrapper">
@@ -305,13 +312,15 @@
                         </div>
                     </div>
                 </div>
-                <p><b>Illustration of training-free ViT-Lens integration:</b>
-                    By incorporating the ViT from MLLM as part of the modality encoder and as the foundation model
-                     in ViT-Lens training, the yielded modality Lenses can be seamlessly integrated into 
-                     the MLLMs (e.g., InstructBLIP and SEED) for plug-and-play application.
-                </p>
 
                 <br><br>
+
+
+                <div class="col-md-10 col-md-offset-1">
+                    <div style="text-align: center; margin-top: 150px; margin-bottom: 10px; font-size: 17px;" class="vitlens">
+                      <b>Plug ViT-Lens into InstructBLIP</b>, enabling Any Instruction Following out-of-the-box.
+                    </div>
+                </div>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="image-container">
                         <div class="image-wrapper">
@@ -321,14 +330,8 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="col-md-10 col-md-offset-1">
-                    <div style="text-align: center; margin-top: -10px; margin-bottom: 120px; font-size: 17px;" class="vitlens">
-                      <b>Plug ViT-Lens into InstructBLIP</b>, enabling Any Instruction Following out-of-the-box.
-                    </div>
-                </div>
-                <div class="col-md-10 col-md-offset-1">
+
+                <!-- <div class="col-md-10 col-md-offset-1">
                     <div class="video-container">
                         <div class="video-wrapper">
                             <video class="video" style="width: 100%;" onclick="setAttribute('controls', 'true');" autoplay loop muted>
@@ -341,10 +344,465 @@
                     <div style="text-align: center; margin-top: -10px; margin-bottom: 24px; font-size: 17px;" class="vitlens">
                       <b>Plug ViT-Lens into SEED</b>, enabling compound Any-to-Image Generation out-of-the-box.
                     </div>
-                </div>
-
+                </div> -->
             </div>
         </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div style="text-align: center; margin-top: 130px; margin-bottom: 10px; font-size: 17px;" class="vitlens">
+              <b>Plug ViT-Lens into SEED</b>, enabling compound Any-to-Image Generation out-of-the-box.
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_bed.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_3d_bed.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (3D to Image) Generate an image based on what you see.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_car.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_3d_car.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (3D to Image) Generate an image based on what you see.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_vase.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_3d_vase.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (3D to Image) Generate an image based on what you see.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_sink.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_3d_sink.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (3D to Image) Generate an image based on what you see.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <audio controls style="width: 80%; margin-top: 35%; margin-left: 25%;">
+                                <source src="audio/audio_seawave.mp3" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_audio_sea.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Audio to Image) Generate an image based on what you perceive.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <audio controls style="width: 80%; margin-top: 35%; margin-left: 25%;">
+                                <source src="audio/audio_cracklingfire.mp3" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_audio_fire.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Audio to Image) Generate an image based on what you perceive.</p>
+                </div>
+            </div>
+    
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <audio controls style="width: 80%; margin-top: 35%; margin-left: 25%;">
+                                <source src="audio/audio_train.mp3" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_audio_train.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Audio to Image) Generate an image based on what you perceive.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <audio controls style="width: 80%; margin-top: 35%; margin-left: 25%;">
+                                <source src="audio/audio_dog.mp3" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_audio_dog.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Audio to Image) Generate an image based on what you perceive.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <audio controls style="width: 80%; margin-top: 35%; margin-left: 25%;">
+                                <source src="audio/audio_church_bells.mp3" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_audio_church.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Audio to Image) Generate an image based on what you perceive.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <audio controls style="width: 80%; margin-top: 35%; margin-left: 25%;">
+                                <source src="audio/audio_chirping_birds.mp3" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_audio_bird.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Audio to Image) Generate an image based on what you perceive.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/eeg_elephant.png" class="img-responsive" style="width: 50%; margin-top: 10%; margin-left: 40%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_eeg_elephant.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (EEG to Image) Generate an image based on what you see.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/eeg_mountain_tent.png" class="img-responsive" style="width: 60%; margin-top: 10%; margin-left: 40%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_eeg_tent.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Tactile to Image) Generate an image based on what you see.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/tactile_grass.png" class="img-responsive" style="width: 50%; margin-top: 10%; margin-left: 40%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_tactile_grass.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (EEG to Image) Generate an image based on what you see.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/tactile_sofa.png" class="img-responsive" style="width: 50%; margin-top: 10%; margin-left: 40%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_tactile_sofa.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Tactile to Image) Generate an image based on what you see.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/depth_bedroom.png" class="img-responsive" style="width: 50%; margin-top: 10%; margin-left: 40%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_depth_bedroom.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (EEG to Image) Generate an image based on what you see.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/depth_bookstore.png" class="img-responsive" style="width: 50%; margin-top: 10%; margin-left: 40%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_depth_bookstore.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Tactile to Image) Generate an image based on what you see.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_fp.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_edit_3d_fp.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Compound 3D to Image) Add Christmas atmosphere. Generate an image.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_chair.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_edit_3d_chair.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Compound 3D to Image) Add Halloween atmosphere. Generate an image.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_plant.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_edit_3d_plant.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Compound 3D to Image) Add a cat. Generate an image.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/3d_long_car.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_edit_3d_long_car.png" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Compound 3D to Image) Add beach in the background. Generate an image.</p>
+                </div>
+            </div>
+    
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/combine_1.png" class="img-responsive" style="width: 100%; margin-top: 20%; margin-left: 20%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_combine_1.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Mixed Modalities to Image) Combine these two visual concepts. Generate an image.</p>
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/combine_2.png" class="img-responsive" style="width: 100%; margin-top: 10%; margin-left: 20%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="image-container">
+                                <div class="image-wrapper">
+                                    <img src="img/gen_combine_2.jpg" class="img-responsive" style="width: 90%;"></img>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> (Mixed Modalities to Image) Combine these two visual concepts. Generate an image.</p>
+                </div>
+            </div>
+        </div>
+        <br>
+
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -385,6 +843,7 @@
         </div>
     </div>
     </div>
+
 
     <script>
         const authors = document.querySelectorAll('.author');
