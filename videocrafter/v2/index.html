@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <link rel="icon" type="image/png" href="./img/icon.png">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Shantell+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css" rel="stylesheet"/>
+    <script defer src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.14.0/gradio.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        iframe {
+            height: 75vh;
+            width: 100%;
+            /* or any width you prefer */
+            border: none;
+        }
+    </style>
+
+    <title>VideoCrafter2</title>
+
+    <meta name="description" content="VideoCrafter2">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+    <!--FACEBOOK-->
+    <!-- <meta property="og:image" content="./img/milestone.jpg"> -->
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="2040">
+    <meta property="og:image:height" content="638">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ailab-cvc.github.io/videocrafter"/>
+    <meta property="og:title" content="VideoCrafter2" />
+    <meta property="og:description"
+        content="VideoCrafter2: Overcoming Data Limitations for High-Quality Video Diffusion Models." />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VideoCrafter2" />
+    <meta name="twitter:description"
+        content="VideoCrafter2: Overcoming Data Limitations for High-Quality Video Diffusion Models." />
+    <!-- <meta name="twitter:image" content="./img/milestone.jpg" /> -->
+
+
+    <!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <link rel="stylesheet" href="css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="css/bulma-slider.min.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bulma-carousel.min.js"></script>
+    <script src="js/bulma-slider.min.js"></script>
+    <script src="js/index.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-52J0PM8XKV');
+    </script>
+
+
+    <style>
+        .nav-pills {
+            position: relative;
+            display: inline;
+        }
+
+        .author {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .author .affiliation {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            width: 120px;
+            top: 100%;
+            left: 50%;
+            margin-left: -60px;
+            /* Use half of the width (120/2 = 60), to center the tooltip */
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .author:hover .affiliation {
+            visibility: visible;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .video-wrapper {
+            flex: 1;
+            margin-right: 2px;
+            margin-left: 2px;
+            max-width: calc(33.33%px);
+            /* 33.33% for 3 videos per row, subtracting margins */
+            height: auto;
+            text-align: center;
+        }
+
+        .video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            margin-top: 0px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            /* Arrange items horizontally */
+            justify-content: space-between;
+            /* Spread items horizontally */
+            align-items: flex-end;
+            /* Align items at the bottom */
+        }
+
+        .image-container .image-wrapper {
+            flex: 1;
+            /* Distribute equal width to both images */
+            padding: 10px;
+            /* Add some spacing between images */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            /* Constrain image width */
+            height: auto;
+            /* Maintain image aspect ratio */
+            display: block;
+            /* Remove extra space below inline images */
+            margin: 0 auto;
+            /* Center the images within their containers */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <strong>
+                    <font size="+6">  <img src="img/icon.png" width="45"> <span class="rainbow-gradient">VideoCrafter2</span></font>
+                    <font size="+6">: Overcoming Data Limitations<br> for High-Quality Video Diffusion Models</font>
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 text-center">
+                <br>
+                <span class="author-block">
+                    <a href="https://scutpaul.github.io//">Haoxin Chen</a>,</span>
+                <span class="author-block">
+                    <a href="https://yzhang2016.github.io/">Yong Zhang*</a>,</span>
+                <span class="author-block">
+                    <a href="https://vinthony.github.io/academic/">Xiaodong Cun</a>,</span>
+                <span class="author-block">
+                    <a href="https://menghanxia.github.io/">Menghan Xia</a>,</span>
+                <span class="author-block">
+                    <a href="https://xinntao.github.io/">Xintao Wang</a>,</span>
+                <span class="author-block">
+                    <a href="https://yzhang2016.github.io/">Chao Weng</a>,</span>
+                <span class="author-block">
+                    <a href="https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en">Ying Shan</a></span>
+                
+                <br>
+                <span class="author-block">
+                    <a href="https://ai.tencent.com/ailab/en/index">Tencent AI Lab</a></span>
+                <br>
+                <br>
+                
+            </div>
+        </div>
+        <div class="column has-text-centered">
+            <div class="publication-links">
+                <span class="link-block">
+                    <a href="https://arxiv.org/abs/2401.09047" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font">
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span class="sansfont">Paper</span>
+                    </a>
+                </span>
+
+                <span class="link-block">
+                    <a href="https://github.com/AILab-CVC/VideoCrafter" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font">
+                    <span class="icon">
+                        <i class="fa-brands fa-github"></i>
+                    </span>
+                    <span class="sansfont">Code</span>
+                    </a>
+                </span>
+
+                <span class="link-block">
+                    <a href="https://huggingface.co/spaces/VideoCrafter/VideoCrafter-Demo" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font">
+                    <span class="icon">
+                        <i class="fa-solid fa-desktop"></i>
+                    </span>
+                    <span class="sansfont">Demo</span>
+                    </a>
+                </span>
+
+                <span class="link-block">
+                    <a href="https://discord.gg/RQENrunu92" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font">
+                    <span class="icon">
+                        <i class="fa-brands fa-discord"></i>
+                    </span>
+                    <span class="sansfont">Discord</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <br>
+
+        <div class="container">
+            <div class="col-md-10 col-md-offset-1 ">
+            <div id="results-carousel" class="carousel results-carousel">
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/a_little_boy.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/A_cute_raccoon.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/man_walk.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/lara.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/tea.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/singer.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/black_girl.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+                <div class="item item-1  text-center">
+                <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/bear_run.mp4" type="video/mp4" width="800">
+                </video>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-offset-2">
+                <h3>
+                    <b>VideoCrafter2 Improves: Visual Quality, Motion, Concept Composition</b>
+                </h3>
+
+            </div>
+
+            <div class="col-md-10 col-md-offset-1">
+                <div class="video-container" style="margin-top: 0px;">
+                    <div class="video-wrapper">
+                        <video class="video" width="1000px" height="1000px" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/comp_v1_v2.mov" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- <div class="video-wrapper">
+                        <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/seed-llama-demo2.mp4" type="video/mp4">
+                        </video>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+
+        <!--Video-->
+
+        <div class="row">
+            <div class="col-md-offset-2" >
+                <h3>
+                    <b>Exquisite film, produced by VideoCrafter2, directed by Human</b>
+                </h3>
+            </div>
+            <div class="container is-max-desktop">
+                <div class="item">
+                <div class="column-video">
+                <iframe src="https://www.youtube.com/embed/TUsFkW0tK-s" frameborder="0" style="width:100%; height:500px;"></iframe>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="columns is-centered has-text-centered">
+                <h3>
+                    <b>Try VideoCrafter2 now !</b>
+                </h3>
+
+            </div>
+
+            <iframe src="https://videocrafter-videocrafter2.hf.space"></iframe>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Notes</b>
+                </h3>
+                  <b>- Citation: </b>
+                  If you are using the code, models, and data in your research or are inspired by our work,
+                  <a target="_blank" href="./citation.txt">please cite</a>.
+                </p>
+
+                <p>
+                  <b>- License: </b>
+                  Our code, models and data are distributed under <a target="_blank" href="https://github.com/AILab-CVC/SEED/blob/main/License.txt">Apache 2.0 License</a>.
+                </p>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Acknowledgements</b>
+                </h3>
+                    The website template was borrowed from <a target="_blank" href="https://robotics-transformer-x.github.io/">Open X-Embodiment</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>

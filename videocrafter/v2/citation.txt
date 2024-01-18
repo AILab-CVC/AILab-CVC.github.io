@@ -1,0 +1,8 @@
+@misc{chen2024videocrafter2,
+      title={VideoCrafter2: Overcoming Data Limitations for High-Quality Video Diffusion Models}, 
+      author={Haoxin Chen and Yong Zhang and Xiaodong Cun and Menghan Xia and Xintao Wang and Chao Weng and Ying Shan},
+      year={2024},
+      eprint={2401.09047},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
