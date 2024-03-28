@@ -1,13 +1,6 @@
-@article{lei2023vitlens,
-  title={Vit-lens: Towards omni-modal representations},
-  author={Lei, Weixian and Ge, Yixiao and Zhang, Jianfeng and Sun, Dylan and Yi, Kun and Shan, Ying and Shou, Mike Zheng},
-  journal={arXiv preprint arXiv:2308.10185},
-  year={2023}
-}
-
-@article{lei2023vitlens-2,
-  title={ViT-Lens-2: Gateway to Omni-modal Intelligence},
+@InProceedings{lei_vitlens,
+  title={ViT-Lens: Towards Omni-modal Representations},
   author={Lei, Weixian and Ge, Yixiao and Yi, Kun and Zhang, Jianfeng and Gao, Difei and Sun, Dylan and Ge, Yuying and Shan, Ying and Shou, Mike Zheng},
-  journal={arXiv preprint arXiv:2311.16081},
-  year={2023}
+  booktitle={CVPR},
+  year={2024}
 }
