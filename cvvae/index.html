@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <link rel="icon" type="image/png" href="./img/icon.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+    rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Shantell+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css" rel="stylesheet"/>
+    <script defer src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        iframe {
+            height: 75vh;
+            width: 100%;
+            /* or any width you prefer */
+            border: none;
+        }
+    </style>
+
+    <title>CV-VAE: A Compatible Video VAE for Latent Generative Video Models</title>
+
+    <meta name="description" content="SEED">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+    <!--FACEBOOK-->
+    <!-- <meta property="og:image" content="./img/seed-1.png"> -->
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2040">
+    <meta property="og:image:height" content="1258">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ailab-cvc.github.io/seed/seed.html"/>
+    <meta property="og:title" content="Planting a SEED of Vision in Large Language Model" />
+    <meta property="og:description"
+        content="Project page for Planting a SEED of Vision in Large Language Model." />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Planting a SEED of Vision in Large Language Model" />
+    <meta name="twitter:description"
+        content="Project page for Planting a SEED of Vision in Large Language Model." />
+    <meta name="twitter:image" content="./img/seed-1.png" />
+
+
+    <!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <link rel="stylesheet" href="css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="css/bulma-slider.min.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bulma-carousel.min.js"></script>
+    <script src="js/bulma-slider.min.js"></script>
+    <script src="js/index.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-52J0PM8XKV');
+    </script>
+
+
+    <style>
+        .nav-pills {
+            position: relative;
+            display: inline;
+        }
+
+        .author {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .author .affiliation {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            width: 120px;
+            top: 100%;
+            left: 50%;
+            margin-left: -60px;
+            /* Use half of the width (120/2 = 60), to center the tooltip */
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .author:hover .affiliation {
+            visibility: visible;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .video-wrapper {
+            flex: 1;
+            margin-right: 2px;
+            margin-left: 2px;
+            max-width: calc(33.33%px);
+            /* 33.33% for 3 videos per row, subtracting margins */
+            height: auto;
+            text-align: center;
+        }
+
+        .video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            margin-top: 0px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            /* Arrange items horizontally */
+            justify-content: space-between;
+            /* Spread items horizontally */
+            align-items: flex-end;
+            /* Align items at the bottom */
+        }
+
+        .image-container .image-wrapper {
+            flex: 1;
+            /* Distribute equal width to both images */
+            padding: 10px;
+            /* Add some spacing between images */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            /* Constrain image width */
+            height: auto;
+            /* Maintain image aspect ratio */
+            display: block;
+            /* Remove extra space below inline images */
+            margin: 0 auto;
+            /* Center the images within their containers */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <strong>
+                    <font size="+6"><span class="rainbow-gradient">CV-VAE</span>: A Compatible Video VAE for Latent Generative Video Models</font>
+                  <!-- <font size="+6">Planting a <span class="rainbow-gradient">SEED</span> of Vision in Large Language Model</font> -->
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 text-center">
+
+                <!-- <br>
+                For any inquiries, please email <a href="mailto:seed-x@googlegroups.com">seed-x@googlegroups.com</a>
+                <br> -->
+                <ul class="list-inline">
+                    <br>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://scholar.google.com/citations?user=tZ3dS3MAAAAJ">Sijie Zhao</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://yzhang2016.github.io/">Yong Zhang*</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://vinthony.github.io/academic/">Xiaodong Cun</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank">Shaoshu Yang</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank">Muyao Niu</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://xiaoyu258.github.io/">Xiaoyu Li</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://wbhu.github.io/">Wenbo Hu</a></li>
+                    <li class="author" data-affiliation="Tencent AI Lab"><a target="_blank" href="https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en">Ying Shan</a></li>
+
+                <br><br>
+                    <a target="_blank" href="https://ai.tencent.com/">
+                    <image src="img/ailab.png" style="height: 30px;"> </a>
+                <br>
+                <!-- For any inquiries, please email <a href="mailto:seed-x@googlegroups.com">seed-x@googlegroups.com</a>
+                <br><br> -->
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- <div class="row">
+
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <ul class="nav nav-pills nav-justified">
+
+                    <li>
+                        <a target="_blank" href="https://arxiv.org/abs/2307.08041">
+                            <image src="img/seed_1st_page.png" height="60px">
+                                <h4><strong>Tech Report</strong></h4>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="https://github.com/AILab-CVC/CV-VAE">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code</strong></h4>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div> -->
+
+        <div class="column has-text-centered">
+        <!-- <div class="row"> -->
+            <!-- <div class="col-md-4 col-md-offset-4 text-center"> -->
+            <div class="publication-links" style="transform: scale(1.5);">
+                <span class="link-block">
+                    <a href="" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font" >
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span class="sansfont">Paper</span>
+                    </a>
+                </span>
+                <span class="link-block">
+                    <a href="https://github.com/AILab-CVC/CV-VAE" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font" >
+                    <span class="icon">
+                        <i class="fa-brands fa-github"></i>
+                    </span>
+                    <span class="sansfont">Code</span>
+                    </a>
+                </span>
+
+                <!-- <span class="link-block">
+                    <a href="https://huggingface.co/spaces/VideoCrafter/VideoCrafter2" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font">
+                    <span class="icon">
+                        <i class="fa-solid fa-desktop"></i>
+                    </span>
+                    <span class="sansfont">Demo</span>
+                    </a>
+                </span> -->
+
+                <!-- <span class="link-block">
+                    <a href="https://discord.gg/RQENrunu92" target="_blank"  class="external-link button is-normal is-rounded light-btn btn-font">
+                    <span class="icon">
+                        <i class="fa-brands fa-discord"></i>
+                    </span>
+                    <span class="sansfont">Discord</span>
+                    </a>
+                </span> -->
+            <!-- </div> -->
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Updates</b>
+                </h3>
+
+                <!-- <p>
+                  <b>[29 July 2023]</b>&nbsp;
+                  We release the code the CV-VAE and its inference code on
+                  <a target="_blank" href="https://github.com/AILab-CVC/SEED">GitHub</a>.
+                </p> -->
+
+                <p>
+                  <b>[30 May 2024]</b>&nbsp;
+                  Our preprint has been released on
+                  <a target="_blank" href="https://arxiv.org/">arXiv</a>.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Preface</b>
+                </h3>
+                <!-- <img src="img/seed_overview.jpg" class="img-responsive"></img> -->
+
+                <p>
+                    We propose <span class="css-rainbow-text">CV-VAE</span> that is compatible with existing image and video models trained with SD image VAE. Our video VAE provides a truly spatio-temporally compressed latent space for latent generative video models, as opposed to uniform frame sampling. Due to the latent space compatibility, a new video model can be trained efficiently with the pretrained image or video models as initialization. Besides, existing video models such as SVD can generate smoother videos with four times more frame using our video VAE by slightly fine-tuning a few parameters.
+                </p>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b><span class="css-rainbow-text">CV-VAE</span> Framework</b>
+                </h3>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="img/VAE3D_framework.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div style="text-align: center; margin-top: 0px; margin-bottom: 24px; font-size: 17px;" class="seed">
+                    Overview of <span class="css-rainbow-text">CV-VAE</span>.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Generation Results</b>
+                </h3>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="video-container" style="margin-top: 0px;">
+                    <div class="video-wrapper">
+                        <video class="video" width="780px" height="600px" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/i2v_and_t2v_results.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- <div class="video-wrapper">
+                        <video class="video" onclick="setAttribute('controls', 'true');" autoplay loop muted>
+                            <source src="video/seed-llama-demo2.mp4" type="video/mp4">
+                        </video>
+                    </div> -->
+                </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Citation</b>
+                </h3>
+                <div class="section bibtex">
+                    <!-- <pre>
+                    @article{ge2023planting,
+                    title={Planting a seed of vision in large language model},
+                    author={Ge, Yuying and Ge, Yixiao and Zeng, Ziyun and Wang, Xintao and Shan, Ying},
+                    journal={arXiv preprint arXiv:2307.08041},
+                    year={2023}
+                    }</pre>
+              	  </div> -->
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <!-- <h3>
+                    <b>Acknowledgements</b>
+                </h3>
+
+                <p>
+                  We sincerely acknowledge Sijie Zhao and Chen Li for their engaging discussions.
+                </p>
+
+                <p> -->
+                    <br><br>
+                    The website template was borrowed from <a target="_blank" href="https://robotics-transformer-x.github.io/">Open X-Embodiment</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const authors = document.querySelectorAll('.author');
+
+        authors.forEach(author => {
+            // Get the affiliation from the data-affiliation attribute
+            const affiliation = author.getAttribute('data-affiliation');
+
+            // Create a new span element with the class "affiliation"
+            const span = document.createElement('span');
+            span.className = 'affiliation';
+            span.textContent = `${affiliation}`;
+
+            // Append the span to the author element
+            author.appendChild(span);
+        });
+    </script>
+</body>
+
+</html>

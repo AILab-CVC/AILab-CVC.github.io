@@ -1,0 +1,6 @@
+@InProceedings{lei_vitlens,
+  title={ViT-Lens: Towards Omni-modal Representations},
+  author={Lei, Weixian and Ge, Yixiao and Yi, Kun and Zhang, Jianfeng and Gao, Difei and Sun, Dylan and Ge, Yuying and Shan, Ying and Shou, Mike Zheng},
+  booktitle={CVPR},
+  year={2024}
+}
